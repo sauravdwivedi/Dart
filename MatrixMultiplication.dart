@@ -61,6 +61,20 @@ class Matrix {
 }
 
 List<List<int>> matMult(Matrix matA, Matrix matB) {
+  /**
+	 * Function multiplies two matrices given col_A == rows_B.
+	 *
+	 * Args:
+	 *     matA (Matrix): Matrix A.
+	 *     matB (Matrix): Matrix B.
+	 *
+	 * Raises:
+	 *     None.
+	 *
+	 * Returns:
+	 *     prodMat (Matrix): Product of Matrix A and Matrix B.
+	 */
+
   List<List<int>> prodMat =
       List.generate(matA.rows, (i) => List.generate(matB.cols, (i) => 0));
   for (var i = 0; i < matA.rows; i++) {
