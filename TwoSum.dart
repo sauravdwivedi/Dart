@@ -37,23 +37,26 @@ String twoSum(List<int> listOfNumbs, int targetNum) {
 }
 
 void main() {
-  print('Enter list of integers (space separated e.g. \'1 2 3\'): ');
-  List<int> listOfNumbs = [0];
-  int targetNum = 0;
   try {
+    print('Enter list of integers (space separated e.g. \'1 2 3\'): ');
+    List<int> listOfNumbs = [0];
+    int targetNum = 0;
     String? inputLine = stdin.readLineSync();
     if (inputLine != null) {
-      listOfNumbs = inputLine.split(' ').map(int.parse).toList();
+      listOfNumbs = inputLine.trim().split(' ').map(int.parse).toList();
     }
     print('Enter target integer: ');
     String? inputNum = stdin.readLineSync();
     if (inputNum != null) {
-      targetNum = int.parse(inputNum);
+      targetNum = int.parse(inputNum.trim());
     }
     String result = twoSum(listOfNumbs, targetNum);
     print(result);
   } on FormatException catch (e) {
     stderr.writeln('Can only accept integers as input. Please try again! $e');
+    main();
+  } catch (e) {
+    stderr.writeln('An error occurred. Please try again! $e');
     main();
   }
 }
