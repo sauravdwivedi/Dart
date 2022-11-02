@@ -19,36 +19,44 @@ class Matrix {
   }
 
   void setMatrix() {
-    print('Matrix ${this.name} rows: ');
-    int rows = 0;
-    String? inputNum = stdin.readLineSync();
-    if (inputNum != null) {
-      rows = int.parse(inputNum);
-    }
-    print('Matrix ${this.name} cols: ');
-    int cols = 0;
-    inputNum = stdin.readLineSync();
-    if (inputNum != null) {
-      cols = int.parse(inputNum);
-    }
-    print('Space separated Matrix ${this.name} entries (e.g. \'1 2 3\'): ');
-    List<int> matRaw = [];
-    String? inputLine = stdin.readLineSync();
-    if (inputLine != null) {
-      matRaw = inputLine.split(' ').map(int.parse).toList();
-    }
-    List<List<int>> mat =
-        List.generate(rows, (i) => List.generate(cols, (i) => 0));
-    for (var i = 0; i < rows; i++) {
-      List<int> rowTemp = List.generate(cols, (i) => 0);
-      for (var j = 0; j < cols; j++) {
-        rowTemp[j] = matRaw[(i * cols + j).toInt()];
+    try {
+      print('Matrix ${this.name} rows: ');
+      int rows = 0;
+      String? inputNum = stdin.readLineSync();
+      if (inputNum != null) {
+        rows = int.parse(inputNum.trim());
       }
-      mat[i] = rowTemp;
+      print('Matrix ${this.name} cols: ');
+      int cols = 0;
+      inputNum = stdin.readLineSync();
+      if (inputNum != null) {
+        cols = int.parse(inputNum.trim());
+      }
+      print('Space separated Matrix ${this.name} entries (e.g. \'1 2 3\'): ');
+      List<int> matRaw = [];
+      String? inputLine = stdin.readLineSync();
+      if (inputLine != null) {
+        matRaw = inputLine.trim().split(' ').map(int.parse).toList();
+      }
+      List<List<int>> mat =
+          List.generate(rows, (i) => List.generate(cols, (i) => 0));
+      for (var i = 0; i < rows; i++) {
+        List<int> rowTemp = List.generate(cols, (i) => 0);
+        for (var j = 0; j < cols; j++) {
+          rowTemp[j] = matRaw[(i * cols + j).toInt()];
+        }
+        mat[i] = rowTemp;
+      }
+      this.rows = rows;
+      this.cols = cols;
+      this.matrix = mat;
+    } on FormatException catch (e) {
+      stderr.writeln('Can only accept integers as input. Please try again! $e');
+      this.setMatrix();
+    } catch (e) {
+      stderr.writeln('Caught an error. Please try again! $e');
+      this.setMatrix();
     }
-    this.rows = rows;
-    this.cols = cols;
-    this.matrix = mat;
   }
 }
 
