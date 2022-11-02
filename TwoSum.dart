@@ -7,6 +7,20 @@
 import 'dart:io';
 
 String twoSum(List<int> listOfNumbs, int targetNum) {
+  /**
+   * Function to check if any pair in array contains sum equal to target.
+   * 
+   * Args:
+   *  listOfNumbs (List<int>): List of integers
+   *  targetNum (int): Target integer
+   * 
+   * Raises:
+   *  None
+   * 
+   * Returns:
+   *  String: Wheather array contains a pair with sum equals target, or not.
+   */
+
   bool result = false;
   listOfNumbs.forEach((p) {
     listOfNumbs.forEach((q) {
@@ -24,17 +38,22 @@ String twoSum(List<int> listOfNumbs, int targetNum) {
 
 void main() {
   print('Enter list of integers (space separated e.g. \'1 2 3\'): ');
-  String? inputLine = stdin.readLineSync();
-  var listOfNumbs;
-  if (inputLine != null) {
-    listOfNumbs = inputLine.split(' ').map(int.parse).toList();
+  List<int> listOfNumbs = [0];
+  int targetNum = 0;
+  try {
+    String? inputLine = stdin.readLineSync();
+    if (inputLine != null) {
+      listOfNumbs = inputLine.split(' ').map(int.parse).toList();
+    }
+    print('Enter target integer: ');
+    String? inputNum = stdin.readLineSync();
+    if (inputNum != null) {
+      targetNum = int.parse(inputNum);
+    }
+    String result = twoSum(listOfNumbs, targetNum);
+    print(result);
+  } on FormatException catch (e) {
+    stderr.writeln('Can only accept integers as input. Please try again! $e');
+    main();
   }
-  print('Enter target integer: ');
-  String? inputNum = stdin.readLineSync();
-  var targetNum;
-  if (inputNum != null) {
-    targetNum = int.parse(inputNum);
-  }
-  String result = twoSum(listOfNumbs, targetNum);
-  print(result);
 }
